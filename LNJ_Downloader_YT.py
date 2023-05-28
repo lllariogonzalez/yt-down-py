@@ -24,11 +24,11 @@ sys.stderr = output
 
 def download_video(links):
     progress_bar.start(250)
-    response = descargar_video(links)
+    response = descargar_video(links, check_var.get())
     descargar_btn.config(state=NORMAL)
     if response == "Todas las descargas completadas":
         progress_bar.stop()
-        progress_bar.step(100)
+        progress_bar.step(99.9)
         notificaciones.config(text=response)
     else:
         notificaciones.config(text=response)
@@ -60,7 +60,7 @@ def enlace_no_hover(event):
 
 ventana = Tk()
 ventana.title("LNJ DownloaderYT")
-ventana.geometry("400x500")
+ventana.geometry("400x550")
 ventana.iconbitmap(resolver_ruta("lnj.ico"))
 
 title = Label(
@@ -76,6 +76,12 @@ video_url = Text(
     font=("Segoe UI Variable", 10, "normal"),
 )
 video_url.pack(padx=20, pady=5)
+
+check_var = BooleanVar()
+
+# Crear el Checkbutton
+check_button = Checkbutton(text="MP3", variable=check_var)
+check_button.pack()
 
 descargar_btn = Button(
     ventana,

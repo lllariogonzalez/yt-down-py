@@ -11,7 +11,7 @@ def convertir_a_mp3(ruta_video, ruta_mp3):
         print(f"Ocurrió un error durante la conversión a MP3: {str(e)}")
 
 
-def descargar_video(links):
+def descargar_video(links, check):
     enlaces = [link.strip() for link in links]
     try:
         for enlace in enlaces:
@@ -20,7 +20,8 @@ def descargar_video(links):
             title = video.title[:40].replace("/", "-")
             video.streams.get_highest_resolution().download("./", f"{str(title)}.mp4")
             print("Descarga MP4 completa.", title)
-            convertir_a_mp3((f"./{str(title)}.mp4"), (f"./{str(title)}.mp3"))
+            if check:
+                convertir_a_mp3((f"./{str(title)}.mp4"), (f"./{str(title)}.mp3"))
         return "Todas las descargas completadas"
     except Exception as e:
         return f"Ocurrió un error durante la descarga: {str(e)}"
